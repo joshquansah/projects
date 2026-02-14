@@ -1,2 +1,0 @@
-# projects
-josh's projects
