@@ -1,8 +1,15 @@
 package com.worldcup;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Objects;
 
+@Entity
+@Table(name="users")
 public class User {
+    @Id
     private Integer id;
     private String username;
     private String email;
@@ -13,6 +20,9 @@ public class User {
 
     public User(Integer id, String username, String email, String password_hash) {
         this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password_hash = password_hash;
     }
 
     public Integer getId() {
