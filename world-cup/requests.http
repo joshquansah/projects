@@ -3,3 +3,11 @@ GET http://localhost:8080
 ###
 GET http://localhost:8080/users
 ###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "username": "Joshua",
+  "email": "jqk@fo.com",
+  "password_hash": "123"
+}
