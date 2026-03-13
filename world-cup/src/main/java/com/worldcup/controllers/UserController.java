@@ -1,5 +1,8 @@
-package com.worldcup;
+package com.worldcup.controllers;
 
+import com.worldcup.entities.User;
+import com.worldcup.repositories.UserRepository;
+import com.worldcup.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

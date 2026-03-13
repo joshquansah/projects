@@ -1,4 +1,4 @@
-package com.worldcup;
+package com.worldcup.entities;
 
 import jakarta.persistence.*;
 

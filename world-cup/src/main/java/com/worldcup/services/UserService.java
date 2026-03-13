@@ -1,5 +1,7 @@
-package com.worldcup;
+package com.worldcup.services;
 
+import com.worldcup.repositories.UserRepository;
+import com.worldcup.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
