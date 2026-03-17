@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public class ScorePoller {
     @Autowired
     private MatchRepository matchRepository;
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 3600000)
     public void pollScores(){
         System.out.println("polling...");
         try{
@@ -38,6 +39,10 @@ public class ScorePoller {
                         m.setAwayScore(fw.goals().away());
                         m.setStatus(fw.fixture().status().shortStatus());
                         m.setElapsed(fw.fixture().status().elapsed());
+                        m.setDate(ZonedDateTime.parse(fw.fixture().date()).toLocalDate());
+                        m.setLeagueId(fw.league().id());
+                        m.setLeagueName(fw.league().name());
+                        m.setSeason(fw.league().season());
                         return m;
                         }).toList();
         matchRepository.saveAll(matches);

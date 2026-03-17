@@ -1,4 +1,7 @@
 package com.worldcup.entities;
 
-public record Fixture(Long id, Status status) {
+
+import java.time.LocalDate;
+
+public record Fixture(Long id, String date, Status status) {
 }

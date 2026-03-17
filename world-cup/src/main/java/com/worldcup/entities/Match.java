@@ -1,12 +1,21 @@
 package com.worldcup.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
+import java.time.LocalDate;
+
 
 @Entity
 public class Match{
     @Id
     private Long fixtureId;
+    @Column(name = "match_date")
+    private LocalDate date;
+    private Integer leagueId;
+    private String leagueName;
+    private Integer season;
     private String homeTeam;
     private String awayTeam;
     private Integer homeScore;
@@ -14,8 +23,12 @@ public class Match{
     private String status;
     private Integer elapsed;
 
-    public Match(Long fixtureId, String homeTeam, String awayTeam, Integer homeScore, Integer awayScore, String status, Integer elapsed) {
+    public Match(Long fixtureId, LocalDate date, Integer leagueId, String leagueName, Integer season, String homeTeam, String awayTeam, Integer homeScore, Integer awayScore, String status, Integer elapsed) {
         this.fixtureId = fixtureId;
+        this.date = date;
+        this.leagueId = leagueId;
+        this.leagueName = leagueName;
+        this.season = season;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.homeScore = homeScore;
@@ -23,6 +36,8 @@ public class Match{
         this.status = status;
         this.elapsed = elapsed;
     }
+
+
 
     public Match() {
 
@@ -82,5 +97,37 @@ public class Match{
 
     public void setElapsed(Integer elapsed) {
         this.elapsed = elapsed;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Integer getLeagueId() {
+        return leagueId;
+    }
+
+    public void setLeagueId(Integer leagueId) {
+        this.leagueId = leagueId;
+    }
+
+    public String getLeagueName() {
+        return leagueName;
+    }
+
+    public void setLeagueName(String leagueName) {
+        this.leagueName = leagueName;
+    }
+
+    public Integer getSeason() {
+        return season;
+    }
+
+    public void setSeason(Integer season) {
+        this.season = season;
     }
 }
