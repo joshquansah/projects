@@ -1,4 +1,4 @@
 package com.worldcup.entities;
 
-public record League(Integer id, String name, Integer season) {
+public record League(Integer id, String name, Integer season, String round) {
 }

@@ -22,8 +22,9 @@ public class Match{
     private Integer awayScore;
     private String status;
     private Integer elapsed;
+    private String round;
 
-    public Match(Long fixtureId, LocalDate date, Integer leagueId, String leagueName, Integer season, String homeTeam, String awayTeam, Integer homeScore, Integer awayScore, String status, Integer elapsed) {
+    public Match(Long fixtureId, LocalDate date, Integer leagueId, String leagueName, Integer season, String homeTeam, String awayTeam, Integer homeScore, Integer awayScore, String status, Integer elapsed, String round) {
         this.fixtureId = fixtureId;
         this.date = date;
         this.leagueId = leagueId;
@@ -35,6 +36,7 @@ public class Match{
         this.awayScore = awayScore;
         this.status = status;
         this.elapsed = elapsed;
+        this.round = round;
     }
 
 
@@ -129,5 +131,13 @@ public class Match{
 
     public void setSeason(Integer season) {
         this.season = season;
+    }
+
+    public String getRound() {
+        return round;
+    }
+
+    public void setRound(String round) {
+        this.round = round;
     }
 }
