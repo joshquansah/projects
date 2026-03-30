@@ -46,7 +46,7 @@ function App() {
       <h1>League Table</h1>
       <Table data={table} />
       <h1>Goal Stats</h1>
-      <Goals goals={goals} />
+      <Goals goals={goals} isAnimationActive={true}/>
       <h1>Home vs Away</h1>
       <Table data={homeaway} />
       <h1>Form</h1>
