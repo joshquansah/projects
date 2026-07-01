@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
@@ -55,6 +55,11 @@ export default function LoginPage() {
         <button type="submit" className="btn-primary" disabled={loading}>
           {loading ? "Signing in…" : "Sign in"}
         </button>
+        <div style={{ marginTop: 12, textAlign: "center" }}>
+          <small>
+            Don't have an account? <Link to="/register">Register</Link>
+          </small>
+        </div>
       </form>
     </div>
   );

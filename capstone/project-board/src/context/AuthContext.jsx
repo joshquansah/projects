@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const [user, setUser] = useState(() => {
     const stored = localStorage.getItem("user");
-    return stored ? JSON.parse(stored) : null;
+    return stored && stored !== "undefined" ? JSON.parse(stored) : null;
   });
 
   const login = useCallback(async (email, password) => {
