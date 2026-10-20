@@ -1,16 +1,16 @@
-const Selector = ({options, onChange, value}) => {
-
-    return(
-    <div>
-      <label htmlFor="seasons"> Choose a season:</label>
-      <input list="season-options" id="seasons" onChange={onChange} value={value}/>
-      <datalist id = "season-options">
-        {options.map((option) => 
-        <option key = {option.label} value = {option.value}></option>
-        )
-        }
-      </datalist>
+const Selector = ({ options, onChange, value }) => {
+  return (
+    <div className="season-selector">
+      <label htmlFor="seasons">Season</label>
+      <select id="seasons" onChange={onChange} value={value}>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </div>
-    )
-}
-export default Selector
+  );
+};
+
+export default Selector;

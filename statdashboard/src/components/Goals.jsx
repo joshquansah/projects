@@ -1,71 +1,112 @@
-import { BarChart, Legend, XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts';
+import {
+  BarChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Bar,
+  ResponsiveContainer,
+} from 'recharts';
 
-import Table from './Table'
+import Table from './Table';
+import teamColors from '../services/teamColors';
 
-const Goals = ({goals, isAnimationActive}) => {
-  const premierLeagueColors = {
-  "Arsenal": "#EF0107",            // Red 
-  "Aston Villa": "#95BFE5",         // Light Blue / claret and blue
-  "Bournemouth": "#DA291C",        // Red 
-  "Brentford": "#E30613",          // Red 
-  "Brighton": "#0057B8",           // Blue 
-  "Burnley": "#6C1D45",
-  "Chelsea": "#034694",            // Blue 
-  "Crystal Palace": "#1B458F",      // Blue & red 
-  "Everton": "#003399",            // Blue 
-  "Fulham": "#000000",             // Black & white 
-  "Ipswich": "#0055A4",
-  "Leeds": "#FFCC00",        // White & blue trim 
-  "Leicester": "#003090",      // Blue 
-  "Liverpool": "#C8102E",          // Red 
-  "Luton": "#F26522",
-  "Manchester City": "#6CABDD",     // Sky blue 
-  "Manchester United": "#DA020E",   // Red 
-  "Newcastle": "#000000",    // Black & white stripes 
-  "Nottingham Forest": "#E00017",   // Red 
-  "Sheffield Utd": "#EE2737",
-  "Southampton": "#FF0000",        // Red & white stripes 
-  "Tottenham": "#132257",   // Navy 
-  "West Ham": "#7A263A",      // Claret 
-  "Wolves": "#FDB913"              // Old gold 
+const formatChartValue = (value) => {
+  if (typeof value === 'number') return value.toLocaleString();
+  return value;
 };
-const CustomBarShape = (props) => {
-  const { x, y, width, height, payload } = props;
-  const fillColor = premierLeagueColors[payload.team] || "#8884d8";
-  return <rect x={x} y={y} width={width} height={height} fill={fillColor} />;
-};
-    if(!goals) return <p>No year selected</p>
 
-    return(
+const Goals = ({ goals, isAnimationActive }) => {
+  const chartSets = [
+    {
+      title: 'Goals scored',
+      dataKey: 'Goals Scored',
+      color: '#2ec5a6',
+      data: goals?.['Goals Scored'] || [],
+    },
+    {
+      title: 'Goals conceded',
+      dataKey: 'Goals Conceded',
+      color: '#ff6b6b',
+      data: goals?.['Goals Conceded'] || [],
+    },
+  ];
+
+  const CustomBarShape = (props) => {
+    const { x, y, width, height, payload } = props;
+    const fillColor = teamColors[payload.team] || 'var(--pl-accent)';
+    return <rect x={x} y={y} width={width} height={height} fill={fillColor} rx={6} />;
+  };
+
+  if (!goals || Object.keys(goals).length === 0) {
+    return <p className="empty-state">No goal data available for this season.</p>;
+  }
+
+  return (
+    <div className="goal-section">
+      <div className="panel-heading">
         <div>
-        <h2>Goals Scored</h2>
-      <BarChart style={{ width: '100%', maxWidth: '800px', maxHeight: '70vh', aspectRatio: 1.618 }} 
-        responsive data={goals["Goals Scored"]}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="team" tick={false} label={{ value: "Teams", position: "insideTop", offset: 10 }} />
-        <YAxis width="auto" label={{ value: "Goals", angle: -90, position: "insideLeft", offset: 10 }}/>
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="Goals Scored" shape={CustomBarShape} isAnimationActive={isAnimationActive} />
-      </BarChart>
-      <h2>Goals Conceded</h2>
-      <BarChart style={{ width: '100%', maxWidth: '800px', maxHeight: '70vh', aspectRatio: 1.618 }} 
-        responsive data={goals["Goals Conceded"]}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="team" tick={false} label={{ value: "Teams", position: "insideTop", offset: 10 }}/>
-        <YAxis width="auto" label={{ value: "Goals", angle: -90, position: "insideLeft", offset: 10 }} />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="Goals Conceded" shape={CustomBarShape} isAnimationActive={isAnimationActive} />
-      </BarChart>
-      <h2>Goals Ratio</h2>
-      <Table data={goals["Goals Ratio"]} />
-      <h2>Goals per Game</h2>
-      <Table data={goals["Goals per Game"]} />
-      <h2>Clean Sheets</h2>
-      <Table data={goals["Clean Sheets"]} />
+          <p className="eyebrow">Scoring metrics</p>
+          <h2>Goal analysis</h2>
+        </div>
       </div>
-    )
-    
-}
-export default Goals
+
+      <div className="chart-stack">
+        {chartSets.map((chart) => (
+          <div className="chart-card" key={chart.dataKey}>
+            <h3>{chart.title}</h3>
+            <div className="chart-box">
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={chart.data} margin={{ top: 8, right: 8, left: -24, bottom: 8 }}>
+                      <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
+                      <XAxis
+                        dataKey="team"
+                        interval={0}
+                        tickLine={false}
+                        axisLine={false}
+                        tick={{ fill: 'var(--pl-text-soft)', fontSize: 12, fontFamily: 'Albert Sans', fontWeight: 600, letterSpacing: '0em' }}
+                      />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: 'var(--pl-text-soft)', fontSize: 12, fontFamily: 'Albert Sans', fontWeight: 600 }} allowDecimals={false} />
+                  <Tooltip
+                    formatter={formatChartValue}
+                    contentStyle={{
+                        background: 'var(--pl-surface-2)',
+                        border: '1px solid var(--pl-border)',
+                        borderRadius: '12px',
+                        color: 'var(--pl-text)',
+                    }}
+                  />
+                  <Bar
+                    dataKey={chart.dataKey}
+                      fill={chart.color}
+                      radius={[8, 8, 0, 0]}
+                      barSize={18}
+                    shape={CustomBarShape}
+                    isAnimationActive={isAnimationActive}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mini-table-grid">
+        <div className="mini-table-wrap">
+          <h3>Goals ratio</h3>
+          <Table data={goals['Goals Ratio'] || []} />
+        </div>
+        <div className="mini-table-wrap">
+          <h3>Goals per game</h3>
+          <Table data={goals['Goals per Game'] || []} />
+        </div>
+        <div className="mini-table-wrap">
+          <h3>Clean sheets</h3>
+          <Table data={goals['Clean Sheets'] || []} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Goals;
