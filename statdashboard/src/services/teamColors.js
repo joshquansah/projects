@@ -1,0 +1,28 @@
+const teamColors = {
+  Arsenal: '#EF0107',
+  'Aston Villa': '#95BFE5',
+  Bournemouth: '#DA291C',
+  Brentford: '#E30613',
+  Brighton: '#0057B8',
+  Burnley: '#6C1D45',
+  Chelsea: '#034694',
+  'Crystal Palace': '#1B458F',
+  Everton: '#003399',
+  Fulham: '#000000',
+  Ipswich: '#0055A4',
+  Leeds: '#FFCC00',
+  Leicester: '#003090',
+  Liverpool: '#C8102E',
+  Luton: '#F26522',
+  'Manchester City': '#6CABDD',
+  'Manchester United': '#DA020E',
+  Newcastle: '#000000',
+  'Nottingham Forest': '#E00017',
+  'Sheffield Utd': '#EE2737',
+  Southampton: '#FF0000',
+  Tottenham: '#132257',
+  'West Ham': '#7A263A',
+  Wolves: '#FDB913',
+};
+
+export default teamColors;
